@@ -70,7 +70,7 @@ class MailControllerValidationSpec extends Specification {
         e.status.code == 400
     }
 
-    def "/mail/send cannot be invoked without textBody and not htmlBody"() {
+    def "/mail/send can be invoked without textBody and not htmlBody"() {
         given:
         EmailCmd cmd = new EmailCmd(
                 subject: 'Hola',
@@ -85,7 +85,7 @@ class MailControllerValidationSpec extends Specification {
         rsp.status().code == 200
     }
 
-    def "/mail/send cannot be invoked without htmlBody and not textBody"() {
+    def "/mail/send can be invoked without htmlBody and not textBody"() {
         given:
         EmailCmd cmd = new EmailCmd(
                 subject: 'Hola',
