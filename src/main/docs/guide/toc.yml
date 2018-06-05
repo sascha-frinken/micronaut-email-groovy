@@ -1,0 +1,18 @@
+gettingStarted: 
+  title: Getting Started
+  requirements: What you will need
+  solution: Solution
+application: Application
+writingTheApp:
+  title: Writing the App
+  controller: Controller
+  services:
+    title: Email Service
+    awsSesService: AWS SES
+    sendGridService: SendGrid
+  resources: Resources
+  test: Test
+testingTheApp:
+  title: Testing the Application
+runningTheApp:
+  title: Running the Application

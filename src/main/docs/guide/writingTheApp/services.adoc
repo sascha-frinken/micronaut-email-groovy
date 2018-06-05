@@ -1,0 +1,14 @@
+Create an interface - `EmailService`. Any email provider present in the application should implement it.
+
+[source,groovy]
+.src/groovy/main/example/micronaut/EmailService.groovy
+----
+include::{sourceDir}/src/main/groovy/example/micronaut/EmailService.groovy[]
+----
+
+[source,groovy]
+.src/groovy/main/example/micronaut/Email.groovy
+----
+include::{sourceDir}/src/main/groovy/example/micronaut/Email.groovy[]
+----
+
