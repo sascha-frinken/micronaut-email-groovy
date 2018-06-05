@@ -9,7 +9,7 @@ class AwsSesMailCondition implements Condition {
 
     @Override
     boolean matches(ConditionContext context) {
-        return (System.getProperty("AWS_SOURCE_EMAIL") || System.getenv("AWS_SOURCE_EMAIL")) ||
-                (System.getProperty("AWS_REGION") &&  System.getenv("AWS_REGION"))
+        return (System.getProperty("AWS_SOURCE_EMAIL") || System.getenv("AWS_SOURCE_EMAIL")) &&
+                (System.getProperty("AWS_REGION") ||  System.getenv("AWS_REGION"))
     }
 }
