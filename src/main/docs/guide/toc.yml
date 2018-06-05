@@ -12,5 +12,6 @@ writingTheApp:
     sendGridService: SendGrid
   resources: Run the app
   test: Test
+  validation: Validation
 testingTheApp:
   title: Testing the Application

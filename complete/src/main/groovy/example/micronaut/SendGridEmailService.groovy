@@ -22,8 +22,8 @@ class SendGridEmailService implements EmailService {
 
     String fromEmail
 
-    SendGridEmailService(@Value('${SENDGRID_APIKEY:faa}') String apiKey, // <3>
-                         @Value('${SENDGRID_FROM_EMAIL:foo}') String fromEmail) {
+    SendGridEmailService(@Value('${SENDGRID_APIKEY}') String apiKey, // <3>
+                         @Value('${SENDGRID_FROM_EMAIL}') String fromEmail) {
         this.apiKey = apiKey
         this.fromEmail = fromEmail
     }

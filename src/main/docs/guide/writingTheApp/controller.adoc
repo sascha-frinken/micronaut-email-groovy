@@ -14,11 +14,20 @@ include::{sourceDir}/src/main/groovy/example/micronaut/MailController.groovy[]
 
 The previous controller uses a POGO supplied in the request body as a JSON Payload
 
+
 [source,groovy]
 .src/main/groovy/example/micronaut/EmailCmd.groovy
 ----
-include::{sourceDir}/src/main/groovy/example/micronaut/EmailCmd.groovy[]
+@ToString
+@CompileStatic
+class EmailCmd implements Email {
+
+include::{sourceDir}/src/main/groovy/example/micronaut/EmailCmd.groovy[tag=properties]
+
+    boolean hasErrors() { // <1>
+        false
+    }
+}
 ----
 
-<1> `recipient` is required
-<2> `subject` is required
+<1> We will use a custom validation. See <<validation,CustomValidation>> section to learn more.
