@@ -13,12 +13,22 @@ include::{sourceDir}/build.gradle[tag=sendgrid]
 ----
 
 Create a service which encapsulates the integration with SendGrid. The bean will not be loaded if the
-system properties (`SENDGRID_APIKEY`, `SENDGRID_APIKEY`) are not present.
+system properties (`sendgrid.apikey`, `sendgrid.fromemail`) or environment variables (`SENDGRID_APIKEY`, `SENDGRID_FROM_EMAIL`) are not present.
+
 
 [source,groovy]
 .src/main/groovy/example/micronaut/SendGridEmailCondition.groovy
 ----
 include::{sourceDir}/src/main/groovy/example/micronaut/SendGridEmailCondition.groovy[]
+----
+
+
+Add a test:
+
+[source,groovy]
+.src/test/groovy/example/micronaut/SendGridEmailConditionSpec.groovy
+----
+include::{sourceDir}/src/test/groovy/example/micronaut/SendGridEmailConditionSpec.groovy[]
 ----
 
 [source,groovy]
@@ -30,3 +40,11 @@ include::{sourceDir}/src/main/groovy/example/micronaut/SendGridEmailService.groo
 <1> Use `javax.inject.Singleton` to designate a class a a singleton
 <2> Bean will not loaded unless condition is met.
 <3> Values will be resolved from system properties.
+
+Add a test:
+
+[source,groovy]
+.src/test/groovy/example/micronaut/SendGridEmailServiceSpec.groovy
+----
+include::{sourceDir}/src/test/groovy/example/micronaut/SendGridEmailServiceSpec.groovy[]
+----

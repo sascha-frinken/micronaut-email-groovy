@@ -29,12 +29,14 @@ class AwsSesMailService implements EmailService {
 
     AwsCredentialsProviderService awsCredentialsProviderService
 
-    AwsSesMailService(@Value('${AWS_REGION}') String awsRegion, // <5>
-                      @Value('${AWS_SOURCE_EMAIL}') String sourceEmail,
+    AwsSesMailService(@Value('${AWS_REGION:none}') String awsRegionEnv, // <5>
+                      @Value('${AWS_SOURCE_EMAIL:none}') String sourceEmailEnv,
+                      @Value('${aws.region:none}') String awsRegionProp,
+                      @Value('${aws.sourceemail:none}') String sourceEmailProp,
                       AwsCredentialsProviderService awsCredentialsProviderService
-                      ) {
-        this.awsRegion = awsRegion
-        this.sourceEmail = sourceEmail
+    ) {
+        this.awsRegion = awsRegionEnv != null && !awsRegionEnv.equals("none") ? awsRegionEnv : awsRegionProp
+        this.sourceEmail = sourceEmailEnv != null && !sourceEmailEnv.equals("none") ? sourceEmailEnv : sourceEmailProp
         this.awsCredentialsProviderService = awsCredentialsProviderService
     }
 

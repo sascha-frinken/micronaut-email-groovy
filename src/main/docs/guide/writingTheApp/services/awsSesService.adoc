@@ -11,12 +11,21 @@ include::{sourceDir}/build.gradle[tag=awsses]
 ----
 
 Create a service which encapsulates AWS credentials provider. The bean will not be loaded if the
-system properties (`AWS_ACCESS_KEY_ID`, `AWS_SECRET_KEY`) are not present.
+environment variables (`AWS_ACCESS_KEY_ID`, `AWS_SECRET_KEY`) or system properties ( `aws.accesskeyid`, `aws.secretkey`) are not present.
+
 
 [source,groovy]
 .src/main/groovy/example/micronaut/AwsCredentialsProviderCondition.groovy
 ----
 include::{sourceDir}/src/main/groovy/example/micronaut/AwsCredentialsProviderCondition.groovy[]
+----
+
+Add a test:
+
+[source,groovy]
+.src/test/groovy/example/micronaut/AwsCredentialsProviderConditionSpec.groovy
+----
+include::{sourceDir}/src/test/groovy/example/micronaut/AwsCredentialsProviderConditionSpec.groovy[]
 ----
 
 [source,groovy]
@@ -29,13 +38,31 @@ include::{sourceDir}/src/main/groovy/example/micronaut/AwsCredentialsProviderSer
 <2> Bean will not loaded unless condition is met.
 <3> Values will be resolved from system properties.
 
+Add a test:
+
+[source,groovy]
+.src/test/groovy/example/micronaut/AwsCredentialsProviderServiceSpec.groovy
+----
+include::{sourceDir}/src/test/groovy/example/micronaut/AwsCredentialsProviderServiceSpec.groovy[]
+----
+
 Create a service which sends the email with AWS Simple Email Service. The bean will not be loaded if the
-system properties (`AWS_REGION`, `AWS_SOURCE_EMAIL`) are not present.
+environment variables (`AWS_REGION`, `AWS_SOURCE_EMAIL`) or system properties (`aws.region`, `aws.sourceemail`) are not present.
+
 
 [source,groovy]
 .src/main/groovy/example/micronaut/AwsSesMailCondition.groovy
 ----
 include::{sourceDir}/src/main/groovy/example/micronaut/AwsSesMailCondition.groovy[]
+----
+
+
+Add a test:
+
+[source,groovy]
+.src/test/groovy/example/micronaut/AwsSesMailConditionSpec.groovy
+----
+include::{sourceDir}/src/test/groovy/example/micronaut/AwsSesMailConditionSpec.groovy[]
 ----
 
 [source,groovy]
@@ -49,3 +76,12 @@ include::{sourceDir}/src/main/groovy/example/micronaut/AwsSesMailService.groovy[
 <3> Bean will not loaded, if bean is not present.
 <4> `@Primary` is a qualifier that indicates that a bean is the primary bean that should be selected in the case of multiple possible interface implementations.
 <5> Values will be resolved from system properties.
+
+
+Add a test:
+
+[source,groovy]
+.src/test/groovy/example/micronaut/AwsSesMailServiceSpec.groovy
+----
+include::{sourceDir}/src/test/groovy/example/micronaut/AwsSesMailServiceSpec.groovy[]
+----
