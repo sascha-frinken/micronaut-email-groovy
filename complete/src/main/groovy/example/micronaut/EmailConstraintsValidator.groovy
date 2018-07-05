@@ -10,6 +10,6 @@ class EmailConstraintsValidator implements ConstraintValidator<EmailConstraints,
 
     @Override
     boolean isValid(EmailCmd email, ConstraintValidatorContext context) {
-        email && (email.textBody || email.htmlBody) && email.subject && email.recipient
+        email && (email.textBody || email.htmlBody)
     }
 }

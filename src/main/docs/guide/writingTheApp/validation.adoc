@@ -49,7 +49,5 @@ Annotate Email with `EmailConstraints` and populate the `hasErrors` method.
 include::{sourceDir}/src/main/groovy/example/micronaut/EmailCmd.groovy[tag=clazzwithannotations]
 
 include::{sourceDir}/src/main/groovy/example/micronaut/EmailCmd.groovy[tag=properties]
-
-include::{sourceDir}/src/main/groovy/example/micronaut/EmailCmd.groovy[tag=hasErrors]
 }
 ----
