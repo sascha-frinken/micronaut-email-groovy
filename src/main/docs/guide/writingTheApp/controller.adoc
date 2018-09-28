@@ -10,9 +10,8 @@ include::{sourceDir}/src/main/groovy/example/micronaut/MailController.groovy[]
 <2> Add @Validated annotation at the class level to any class that requires validation.
 <3> Constructor injection
 <4> The http://docs.micronaut.io/snapshot/api/io/micronaut/http/annotation/Post.html[@Post] annotation is used to map the index method to all requests that use an HTTP POST
-<5> Add `@Valid` to any method parameter which requires validation.
-<6> Use a POGO supplied as a JSON payload in the request to populate the email.
-<7> Return 200 OK as the result
+<5> Add `@Valid` to any method parameter which requires validation. Also use a POGO supplied as a JSON payload in the request to populate the email.
+<6> Return 200 OK as the result
 
 The previous controller uses a POGO supplied in the request body as a JSON Payload
 
