@@ -41,9 +41,10 @@ and a validator:
 include::{sourceDir}/src/main/groovy/example/micronaut/EmailConstraintsValidator.groovy[]
 ----
 
-Annotate Email with `EmailConstraints` and populate the `hasErrors` method.
+Annotate Email with `EmailConstraints` and `@Introspected` (to generate the
+https://docs.micronaut.io/latest/guide/index.html#introspection[Bean Introspection information]).
 
-[source,java]
+[source,groovy]
 .src/main/java/example/micronaut/EmailCmd.groovy
 ----
 include::{sourceDir}/src/main/groovy/example/micronaut/EmailCmd.groovy[tag=clazzwithannotations]
