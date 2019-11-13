@@ -1,77 +1,66 @@
-buildscript {
-    repositories {
-        mavenCentral()
-        maven { url "https://plugins.gradle.org/m2/" }
-    }
-    dependencies {
-        classpath "com.github.jengelman.gradle.plugins:shadow:2.0.4"
-        classpath "io.spring.gradle:dependency-management-plugin:1.0.5.RELEASE"
-        classpath "net.ltgt.gradle:gradle-apt-plugin:0.15"
-    }
+plugins {
+    id "groovy"
+    id "com.github.johnrengelman.shadow" version "5.0.0"
+    id "application"
 }
 
 version "0.1"
 group "example.micronaut"
 
-apply plugin:"io.spring.dependency-management"
-apply plugin:"com.github.johnrengelman.shadow"
-apply plugin:"application"
-apply plugin:"groovy"
-apply plugin:"java"
-apply plugin:"net.ltgt.apt-eclipse"
-apply plugin:"net.ltgt.apt-idea"
-
-
 repositories {
-    mavenLocal()
     mavenCentral()
     maven { url "https://jcenter.bintray.com" }
-    maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
 }
 
-dependencyManagement {
-    imports {
-        mavenBom "io.micronaut:micronaut-bom:$micronautVersion"
-    }
+configurations {
+    // for dependencies that are needed for development only
+    developmentOnly
 }
 
 dependencies {
-    annotationProcessor "io.micronaut:micronaut-inject-java"
-    compile "io.micronaut:micronaut-http-client"
-    compile "io.micronaut:micronaut-http-server-netty"
-    compile "io.micronaut:micronaut-runtime-groovy"
-    compile "io.micronaut:micronaut-inject"
-    compile "io.micronaut:micronaut-runtime"
+    compileOnly platform("io.micronaut:micronaut-bom:$micronautVersion")
     compileOnly "io.micronaut:micronaut-inject-groovy"
-    compileOnly "io.micronaut:micronaut-inject-java"
-    runtime "ch.qos.logback:logback-classic:1.2.3"
-    testCompile "io.micronaut:micronaut-inject-groovy"
-    testCompile("org.spockframework:spock-core:1.1-groovy-2.4") {
-        exclude group: "org.codehaus.groovy", module: "groovy-all"
-    }
-    testCompile "io.micronaut:micronaut-inject-java"
+    implementation platform("io.micronaut:micronaut-bom:$micronautVersion")
+    implementation "io.micronaut:micronaut-runtime-groovy"
+    implementation "io.micronaut:micronaut-http-server-netty"
+    implementation "io.micronaut:micronaut-http-client"
 
     //tag::awsses[]
-    compile 'com.amazonaws:aws-java-sdk-ses:1.11.285'
+    implementation 'com.amazonaws:aws-java-sdk-ses:1.11.285'
     //end::awsses[]
     //tag::sendgrid[]
-    compile 'com.sendgrid:sendgrid-java:4.1.2'
+    implementation 'com.sendgrid:sendgrid-java:4.1.2'
     //end::sendgrid[]
 
-    //tag::hibernate-validator[]
-    compile "io.micronaut:micronaut-validation"
-    compile "io.micronaut.configuration:micronaut-hibernate-validator"
-    //end::hibernate-validator[]
+    //tag::validator[]
+    implementation 'io.micronaut:micronaut-validation'
+    //end::validator[]
 
+    runtimeOnly "ch.qos.logback:logback-classic:1.2.3"
+    testCompileOnly platform("io.micronaut:micronaut-bom:$micronautVersion")
+    testImplementation platform("io.micronaut:micronaut-bom:$micronautVersion")
+    testImplementation("org.spockframework:spock-core") {
+        exclude group: "org.codehaus.groovy", module: "groovy-all"
+    }
+    testImplementation "io.micronaut:micronaut-inject-groovy"
+    testImplementation "io.micronaut.test:micronaut-test-spock"
+    testImplementation "io.micronaut.test:micronaut-test-junit5"
+    testRuntimeOnly "org.junit.vintage:junit-vintage-engine:5.5.0"
+}
+
+test.classpath += configurations.developmentOnly
+
+mainClassName = "example.micronaut.Application"
+tasks.withType(GroovyCompile) {
+    groovyOptions.forkOptions.jvmArgs.add('-Dgroovy.parameters=true')
 }
 
 shadowJar {
     mergeServiceFiles()
 }
 
-mainClassName = "example.micronaut.Application"
-compileJava.options.compilerArgs += '-parameters'
-compileTestJava.options.compilerArgs += '-parameters'
+run.classpath += configurations.developmentOnly
+run.jvmArgs('-noverify', '-XX:TieredStopAtLevel=1', '-Dcom.sun.management.jmxremote')
 
 run {
     systemProperty "sendgrid.apikey", System.getProperty('sendgrid.apikey')
